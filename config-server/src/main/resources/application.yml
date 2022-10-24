@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/dongyeon94/config-test1
+          default-label: main
+eureka:
+  client:
+    #    register-with-eureka: true
+    #      fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#    healthcheck:
+#      enabled: true
+
+
+# actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true

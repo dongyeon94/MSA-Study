@@ -1,0 +1,66 @@
+server:
+  port: 8081
+
+# eureka client
+eureka:
+  client:
+#    register-with-eureka: true
+#      fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#    healthcheck:
+#      enabled: true
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: apigateway
+  config:
+    import: "configserver:http://localhost:8888"
+
+# actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+
+
+  # config server
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: msa-service-coffee-order
+#          uri: http://localhost:8080
+#          predicates:
+#            - Path=/coffee-order/**
+#          filters:
+#            - RewritePath=/coffee-order/(?<path>.*),/$\{path}
+#        - id: mas-service-coffee-member
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/coffee-member/**
+#          filters:
+#            - RewritePath=/coffee-member/(?<path>.*),/$\{path}
+#        - id: mas-service-coffee-status
+#          uri: http://localhost:8082
+#          predicates:
+#            - Path=/coffee-status/**
+#          filters:
+#            - RewritePath=/coffee-status/(?<path>.*),/$\{path}
+
+
+## actuator
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include:
+#          - "gateway"
+#  endpoint:
+#    gateway:
+#      enabled: true
