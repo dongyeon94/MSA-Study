@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 # eureka client
 eureka:
@@ -18,6 +18,17 @@ spring:
     name: apigateway
   config:
     import: "configserver:http://localhost:8888"
+  cloud:
+    gateway:
+      routes:
+        - id: UserApp
+          uri: http://localhost:8091/
+          predicates:
+            - Path=/user/**
+  main:
+    web-application-type: reactive
+
+
 
 # actuator 설정
 management:
@@ -28,6 +39,42 @@ management:
   endpoint:
     shutdown:
       enabled: true
+
+
+
+
+  ## actuator
+  #management:
+  #  endpoints:
+  #    web:
+  #      exposure:
+  #        include:
+  #          - "gateway"
+  #  endpoint:
+  #    gateway:
+  #      enabled: true
+
+
+#  cloud:
+#    gateway:
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring GlobalFilter
+#            preLogger: true
+#            postLogger: true
+#      routes:
+#        - id: UserApp
+#          uri: http://localhost:8091/
+#          predicates:
+#            - Path=/user/**
+#          filters:
+#            - name: UserFilter
+#              args:
+#                baseMessage: Spring Cloud Gateway UserFilter
+#                preLogger: true
+#                postLogger: true
+
 
 
   # config server
@@ -52,15 +99,3 @@ management:
 #            - Path=/coffee-status/**
 #          filters:
 #            - RewritePath=/coffee-status/(?<path>.*),/$\{path}
-
-
-## actuator
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include:
-#          - "gateway"
-#  endpoint:
-#    gateway:
-#      enabled: true
