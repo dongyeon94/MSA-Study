@@ -37,6 +37,11 @@ public class UserService {
         return "200";
     }
 
+    public String checkMember(String email) {
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다."));
+        return "200";
+    }
+
     public String passwordReset(String email, String password) {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다."));
         user.setPassword(passwordEncoder.encode(password));
