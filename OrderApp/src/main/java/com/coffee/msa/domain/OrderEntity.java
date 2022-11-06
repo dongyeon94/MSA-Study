@@ -18,7 +18,7 @@ public class OrderEntity {
     @Type(type = "uuid-char")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID          uuid;
+    private UUID            orderId;
 
     private String          menu;
     private String          count;

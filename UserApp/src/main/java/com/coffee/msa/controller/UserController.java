@@ -3,8 +3,10 @@ package com.coffee.msa.controller;
 import com.coffee.msa.domain.UserEntity;
 import com.coffee.msa.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -26,7 +28,7 @@ public class UserController {
 
     @PostMapping("/check/{email}")
     public String checkMemberExist(@PathVariable("email")String email) {
-        System.out.println("get email : " + email);
+        log.info("get email : " + email);
         return userService.checkMember(email);
     }
 

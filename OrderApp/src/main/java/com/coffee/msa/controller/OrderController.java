@@ -22,8 +22,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/menu")
-    public String orderMenu() throws Exception {
-        orderService.orderMenu(new OrderEntity());
+    public String orderMenu(String email) throws Exception {
+        orderService.orderMenu(new OrderEntity(), email);
         return "200";
     }
 

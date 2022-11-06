@@ -38,8 +38,7 @@ public class UserService {
     }
 
     public String checkMember(String email) {
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다."));
-        return "200";
+        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다.")).getUsername();
     }
 
     public String passwordReset(String email, String password) {

@@ -13,23 +13,26 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberExtService service;
+    private final MemberExtService memberExtService;
+    private final StatusExtService statusExtService;
 
-    public String orderMenu(OrderEntity orderEntity) throws Exception{
-        String result = service.checkMember("test");
-        if(!result.equals("200")) {
+    public String orderMenu(OrderEntity orderEntity, String email) throws Exception{
+        String userName = memberExtService.checkMember(email);
+        if(userName.equals("admin")) {
             throw new IllegalArgumentException("잘못된 접근입니다.");
         }
 
         orderEntity.setOrderTime(LocalDateTime.now());
         orderEntity.setCount(orderEntity.getCount());
         orderEntity.setMenu(orderEntity.getMenu());
+
         orderRepository.save(orderEntity);
+        statusExtService.pushOrder(orderEntity, userName);
         return "200";
     }
 
     public String orderChange(OrderEntity order) {
-        OrderEntity orderEntity = orderRepository.findByUuid(order.getUuid()).orElseThrow(NullPointerException::new);
+        OrderEntity orderEntity = orderRepository.findByOrderId(order.getOrderId()).orElseThrow(NullPointerException::new);
         orderEntity.setMenu(order.getMenu());
         orderEntity.setOrderTime(LocalDateTime.now());
         return "200";

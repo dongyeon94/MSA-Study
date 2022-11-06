@@ -1,5 +1,6 @@
 package com.coffee.msa.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -7,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+@Slf4j
 @Service
 public class MemberExtService {
 
@@ -19,19 +21,16 @@ public class MemberExtService {
             .expand(email)
             .toUri();
 
-        System.out.println(uri.toString());
+        log.info("check user " + uri);
+
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.postForEntity(uri, "", String.class);
 
-        System.out.println(" ::  " + result.getStatusCode());
-        System.out.println(" ::  " + result.getBody());
-
-
-        if(!result.getBody().equals("200")) {
-            return "400";
+        if(result.getBody().equals("admin")) {
+            throw new IllegalArgumentException("유저가 없습니다.");
         }
 
-        return "200";
+        return result.getBody();
     }
 
 }
