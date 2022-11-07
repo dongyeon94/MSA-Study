@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class StatusExtService {
 
     public String pushOrder(OrderEntity orderEntity, String userName) throws IllegalAccessException {
-        String uri = "http://localhost:8093/status/order";
+        String uri = "http://localhost:8080/status/order";
 
         log.info("push order to" + uri);
 

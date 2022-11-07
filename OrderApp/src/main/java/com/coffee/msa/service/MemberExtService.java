@@ -14,7 +14,7 @@ public class MemberExtService {
 
     public String checkMember(String email) {
         URI uri = UriComponentsBuilder
-            .fromUriString("http://localhost:8091")
+            .fromUriString("http://localhost:8080")
             .path("/user/check/{email}")
             .encode()
             .build()

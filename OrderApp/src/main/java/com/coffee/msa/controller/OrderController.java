@@ -40,7 +40,7 @@ public class OrderController {
     @PostMapping("/test")
     public String test() {
         URI uri = UriComponentsBuilder
-                    .fromUriString("http://localhost:8091")
+                    .fromUriString("http://localhost:8080")
                     .path("/user/test")
                     .encode()
                     .build()

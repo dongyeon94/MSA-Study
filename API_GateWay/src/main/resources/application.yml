@@ -25,6 +25,15 @@ spring:
           uri: http://localhost:8091/
           predicates:
             - Path=/user/**
+        - id: OrderApp
+          uri: http://localhost:8092/
+          predicates:
+            - Path=/order/**
+        - id: MenuStatus
+          uri: http://localhost:8093/
+          predicates:
+            - Path=/status/**
+
   main:
     web-application-type: reactive
 
