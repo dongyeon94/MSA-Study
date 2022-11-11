@@ -49,13 +49,15 @@ spring:
 
 # eureka client
 eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 30
   client:
-#    register-with-eureka: true
+    register-with-eureka: true
 #      fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-#    healthcheck:
-#      enabled: true
+    healthcheck:
+      enabled: true
 
 # actuator 설정
 management:

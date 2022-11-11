@@ -23,7 +23,7 @@ public class OrderController {
 
     @PostMapping("/menu")
     public String orderMenu(String email) throws Exception {
-        orderService.orderMenu(new OrderEntity(), email);
+        orderService.orderMenu(new OrderEntity(), "test");
         return "200";
     }
 
