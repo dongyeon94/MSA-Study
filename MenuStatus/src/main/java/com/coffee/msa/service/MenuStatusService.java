@@ -17,11 +17,13 @@ public class MenuStatusService {
 
     private final MenuStatusRepository menuStatusRepository;
 
-    public String registorMenu(String orderId, String userName) {
+    public String registorMenu(String orderId, String menu, String count, String userName) {
         MenuStatus menuStatus = new MenuStatus();
         menuStatus.setStatus(OrderStatus.STAY);
         menuStatus.setOrderId(orderId);
         menuStatus.setUsername(userName);
+        menuStatus.setMenu(menu);
+        menuStatus.setOrderCount(count);
         menuStatusRepository.save(menuStatus);
 
         log.info("order by : " + userName);

@@ -23,11 +23,10 @@ public class OrderService {
         }
 
         orderEntity.setOrderTime(LocalDateTime.now());
-        orderEntity.setCount(orderEntity.getCount());
-        orderEntity.setMenu(orderEntity.getMenu());
 
         orderRepository.save(orderEntity);
-        statusExtService.pushOrder(orderEntity, userName);
+//        statusExtService.pushOrder(orderEntity, userName);
+        statusExtService.sendOrder(String.valueOf(orderEntity.getOrderId()), orderEntity.getMenu(), orderEntity.getCount(), userName);
         return "200";
     }
 

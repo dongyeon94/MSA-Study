@@ -17,6 +17,8 @@ public class MenuStatus {
     private Long            id;
 
     private String          orderId;
+    private String          menu;
+    private String          orderCount;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus     status;

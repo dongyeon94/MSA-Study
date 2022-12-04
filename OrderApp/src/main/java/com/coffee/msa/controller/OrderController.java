@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +23,13 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/menu")
-    public String orderMenu(String email) throws Exception {
-        orderService.orderMenu(new OrderEntity(), "test");
+    public String orderMenu(String menu,String count, String email) throws Exception {
+        Random rand = new Random();
+
+        OrderEntity orders = new OrderEntity();
+        orders.setMenu(menu);
+        orders.setCount(count);
+        orderService.orderMenu(orders, email);
         return "200";
     }
 

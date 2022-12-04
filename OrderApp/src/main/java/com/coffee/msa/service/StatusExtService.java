@@ -1,23 +1,36 @@
 package com.coffee.msa.service;
 
 import com.coffee.msa.domain.OrderEntity;
+import com.coffee.msa.domain.OrderProducerDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
-import java.util.HashMap;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StatusExtService {
+
+    private static final String TOPIC = "dymenutopic1";
+    private final KafkaTemplate<String, OrderProducerDTO> kafkaTemplate;
+
+    public void sendOrder(String orderId, String menu, String count, String username) {
+        OrderProducerDTO orderProducerDTO = new OrderProducerDTO();
+        orderProducerDTO.setOrderId(orderId);
+        orderProducerDTO.setOrderMenu(menu);
+        orderProducerDTO.setCount(count);
+        orderProducerDTO.setUsername(username);
+
+        kafkaTemplate.send(TOPIC, orderProducerDTO);
+    }
 
     public String pushOrder(OrderEntity orderEntity, String userName) throws IllegalAccessException {
         String uri = "http://localhost:8080/status/order";

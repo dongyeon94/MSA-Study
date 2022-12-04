@@ -20,10 +20,12 @@ public class MenuStatusController {
     private final MenuStatusService menuStatusService;
 
     @PostMapping("/order")
-    public String newOrder(String orderId, String userName) {
+    public String newOrder(String orderId, String orderMenu, String orderCount, String userName) {
         log.info("[Controller]  orderid : " + orderId);
+        log.info("[Controller]  orderMenu : " + orderMenu);
+        log.info("[Controller]  orderCount : " + orderCount);
         log.info("[Controller]  userName : " + userName);
-        return menuStatusService.registorMenu(orderId, userName);
+        return menuStatusService.registorMenu(orderId, orderMenu, orderCount, userName);
     }
 
     @PostMapping("/change")
